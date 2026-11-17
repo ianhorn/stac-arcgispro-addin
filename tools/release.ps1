@@ -117,8 +117,10 @@ try {
         # below, not this. desktopVersion stays "3.6.0" for both builds, so one manifest loads on 3.6 and 3.7.
         $damlPath = Join-Path $worktreePath "Config.daml"
         $daml = Get-Content $damlPath -Raw
-        $stamped = $daml -replace '(<AddInInfo\b[^>]*\bversion=")[^"]*(")', "`${1}$Version.0`$2"
-        if ($stamped -eq $daml) { throw "Could not find AddInInfo version=`"...`" to stamp in $damlPath" }
+        $versionPattern = '(<AddInInfo\b[^>]*\bversion=")[^"]*(")'
+        # Test for the attribute itself, not for a changed result: stamping the version the file already has is fine.
+        if ($daml -notmatch $versionPattern) { throw "Could not find AddInInfo version=`"...`" to stamp in $damlPath" }
+        $stamped = $daml -replace $versionPattern, "`${1}$Version.0`$2"
         Set-Content $damlPath $stamped -NoNewline
 
         Push-Location $worktreePath
