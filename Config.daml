@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-  KyFromAbove-STAC Browser - ArcGIS Pro Add-in
-  Searches and downloads data from the Kentucky From Above STAC API.
+  STAC Browser - ArcGIS Pro Add-in
+  Searches and downloads data from the STAC API (the built-in default source is the Kentucky From Above catalog).
 -->
-<ArcGIS defaultAssembly="KyFromAboveSTACAddin.dll" defaultNamespace="KyFromAboveSTAC"
+<ArcGIS defaultAssembly="StacProAddin.dll" defaultNamespace="StacProAddin"
         xmlns="http://schemas.esri.com/DADF/Registry"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
-  <AddInInfo id="{8f3a2c1d-4b5e-4a6f-9c01-2d3e4f5a6b7c}" version="1.0.0.0" desktopVersion="3.7.0.1901" product="ArcGISPro">
-    <Name>KyFromAbove-STAC Browser</Name>
-    <Description>Search and download aerial imagery, DEM, and LiDAR point cloud data from the Kentucky From Above STAC API.</Description>
+  <AddInInfo id="{8f3a2c1d-4b5e-4a6f-9c01-2d3e4f5a6b7c}" version="1.0.0.0" desktopVersion="3.6.0" product="ArcGISPro">
+    <Name>STAC Browser</Name>
+    <Description>Search and download aerial imagery, DEM, and LiDAR point cloud data from the STAC API (the built-in default source is the Kentucky From Above catalog).</Description>
     <Image>Images\AddInDesktop32.png</Image>
-    <Author>KyFromAbove Tools</Author>
-    <Company>KyFromAbove-STAC</Company>
+    <Author>StacProAddin</Author>
+    <Company>STAC Browser</Company>
     <Date>8/3/2026</Date>
     <Subject>Framework</Subject>
   </AddInInfo>
   <modules>
-    <insertModule id="KyFromAbove_Module" className="Module1" autoLoad="true" caption="KyFromAbove-STAC">
+    <insertModule id="StacPro_Module" className="Module1" autoLoad="true" caption="STAC Browser">
       <tabs>
-        <tab id="KyFromAbove_Tab1" caption="KyFromAbove-STAC" keytip="K0">
-          <group refID="KyFromAbove_Group1" />
+        <tab id="StacPro_Tab1" caption="STAC Browser" keytip="K0">
+          <group refID="StacPro_Group1" />
         </tab>
       </tabs>
       <groups>
-        <group id="KyFromAbove_Group1" caption="STAC" appearsOnAddInTab="false" keytip="G1">
-          <button refID="KyFromAbove_ShowSearchDockpane" size="large" />
-          <button refID="KyFromAbove_FeedbackButton" size="small"/>
+        <group id="StacPro_Group1" caption="STAC" appearsOnAddInTab="false" keytip="G1">
+          <button refID="StacPro_ShowSearchDockpane" size="large" />
+          <button refID="StacPro_FeedbackButton" size="small"/>
         </group>
       </groups>
       <controls>
-        <button id="KyFromAbove_ShowSearchDockpane" caption="STAC Search"
+        <button id="StacPro_ShowSearchDockpane" caption="STAC Search"
                 className="ShowSearchDockpaneButton" loadOnClick="true" keytip="B1"
                 smallImage="Images\AddInDesktop16.png" largeImage="Images\AddInDesktop32.png">
           <tooltip heading="STAC Search">
-            Open the KyFromAbove STAC search pane to find and download imagery, DEM, and LiDAR data.<disabledText />
+            Open the STAC Browser search pane to find and download imagery, DEM, and LiDAR data.<disabledText />
           </tooltip>
         </button>
-        <button id="KyFromAbove_FeedbackButton" caption="Feedback" className="FeedbackButton"
+        <button id="StacPro_FeedbackButton" caption="Feedback" className="FeedbackButton"
                 loadOnClick="true" smallImage="Images\Feedback16.png" largeImage="Images\Feedback32.png">
           <tooltip heading="Feedback">Report a bug, request a feature, or send feedback directly.<disabledText /></tooltip>
         </button>
-        <tool id="KyFromAbove_DrawPointAoiTool" caption="Draw Point AOI" className="DrawPointAoiTool"
+        <tool id="StacPro_DrawPointAoiTool" caption="Draw Point AOI" className="DrawPointAoiTool"
               loadOnClick="true" condition="esri_mapping_mapPane"
               smallImage="GenericPoint16" largeImage="GenericPoint32">
           <tooltip heading="Draw Point AOI">Draw a point to use as the STAC search 'intersects' AOI.<disabledText /></tooltip>
         </tool>
-        <tool id="KyFromAbove_DrawLineAoiTool" caption="Draw Line AOI" className="DrawLineAoiTool"
+        <tool id="StacPro_DrawLineAoiTool" caption="Draw Line AOI" className="DrawLineAoiTool"
               loadOnClick="true" condition="esri_mapping_mapPane"
               smallImage="GenericLine16" largeImage="GenericLine32">
           <tooltip heading="Draw Line AOI">Draw a line to use as the STAC search 'intersects' AOI.<disabledText /></tooltip>
         </tool>
-        <tool id="KyFromAbove_DrawPolygonAoiTool" caption="Draw Polygon AOI" className="DrawPolygonAoiTool"
+        <tool id="StacPro_DrawPolygonAoiTool" caption="Draw Polygon AOI" className="DrawPolygonAoiTool"
               loadOnClick="true" condition="esri_mapping_mapPane"
               smallImage="GenericPolygon16" largeImage="GenericPolygon32">
           <tooltip heading="Draw Polygon AOI">Draw a polygon to use as the STAC search 'intersects' AOI.<disabledText /></tooltip>
         </tool>
-        <tool id="KyFromAbove_SelectFeatureAoiTool" caption="Select Feature AOI" className="SelectFeatureAoiTool"
+        <tool id="StacPro_SelectFeatureAoiTool" caption="Select Feature AOI" className="SelectFeatureAoiTool"
               loadOnClick="true" condition="esri_mapping_mapPane"
               smallImage="SelectByBox16" largeImage="SelectByBox32">
           <tooltip heading="Select Feature AOI">Click (or drag a box over) an existing feature to use its geometry as the STAC search 'intersects' AOI.<disabledText /></tooltip>
         </tool>
       </controls>
       <dockPanes>
-        <dockPane id="KyFromAbove_SearchDockpane" caption="KyFromAbove-STAC"
+        <dockPane id="StacPro_SearchDockpane" caption="STAC Browser"
                   className="SearchDockpaneViewModel" dock="group" dockWith="esri_core_contentsDockPane"
                   width="420">
           <content className="SearchDockpaneView" />
-          <tooltip heading="KyFromAbove-STAC">Search and download Kentucky From Above data<disabledText /></tooltip>
+          <tooltip heading="STAC Browser">Search and download STAC imagery, DEM, and LiDAR data<disabledText /></tooltip>
         </dockPane>
       </dockPanes>
     </insertModule>

@@ -9,7 +9,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace KyFromAboveSTAC.Services
+namespace StacProAddin.Services
 {
     public sealed record UpdateCheckResult(Version Current, Version Latest, string ReleaseUrl)
     {
@@ -18,15 +18,15 @@ namespace KyFromAboveSTAC.Services
 
     public static class UpdateCheckService
     {
-        private const string LatestReleaseApi = "https://api.github.com/repos/ianhorn/kyfromabove-stac-addin/releases/latest";
-        public const string ReleasesPage = "https://github.com/ianhorn/kyfromabove-stac-addin/releases";
+        private const string LatestReleaseApi = "https://api.github.com/repos/ianhorn/stac-arcgispro-addin/releases/latest";
+        public const string ReleasesPage = "https://github.com/ianhorn/stac-arcgispro-addin/releases";
 
         private static readonly HttpClient Http = CreateClient();
 
         private static HttpClient CreateClient()
         {
             var http = new HttpClient { Timeout = TimeSpan.FromSeconds(15) };
-            http.DefaultRequestHeaders.UserAgent.ParseAdd("KyFromAboveProAddin/1.0"); // required by GitHub's API
+            http.DefaultRequestHeaders.UserAgent.ParseAdd("StacProAddin/1.0"); // required by GitHub's API
             http.DefaultRequestHeaders.Accept.ParseAdd("application/vnd.github+json");
             return http;
         }

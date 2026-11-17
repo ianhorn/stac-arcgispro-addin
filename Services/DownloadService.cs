@@ -5,9 +5,9 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using KyFromAboveSTAC.Stac;
+using StacProAddin.Stac;
 
-namespace KyFromAboveSTAC.Services
+namespace StacProAddin.Services
 {
     /// <summary>Progress report for a single asset download.</summary>
     public class DownloadProgress

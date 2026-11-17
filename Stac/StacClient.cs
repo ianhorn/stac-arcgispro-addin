@@ -13,7 +13,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace KyFromAboveSTAC.Stac
+namespace StacProAddin.Stac
 {
     /// <summary>Search parameters for a STAC item search.</summary>
     public class StacSearchQuery
@@ -49,7 +49,7 @@ namespace KyFromAboveSTAC.Stac
     }
 
     /// <summary>
-    /// HttpClient-backed client for the KyFromAbove STAC API.
+    /// HttpClient-backed client for the STAC Browser API.
     /// Uses a single shared static HttpClient (best practice to avoid socket exhaustion).
     /// </summary>
     public class StacClient : IDisposable
@@ -67,7 +67,7 @@ namespace KyFromAboveSTAC.Stac
                 Timeout = TimeSpan.FromSeconds(120)
             };
             _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _http.DefaultRequestHeaders.UserAgent.ParseAdd("KyFromAboveProAddin/1.0");
+            _http.DefaultRequestHeaders.UserAgent.ParseAdd("StacProAddin/1.0");
             _json = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 

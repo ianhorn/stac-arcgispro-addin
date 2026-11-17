@@ -7,7 +7,7 @@ using System;
 using System.Runtime.CompilerServices;
 using ArcGIS.Desktop.Framework;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     internal static class ProTheme
     {

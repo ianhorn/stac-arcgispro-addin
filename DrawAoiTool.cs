@@ -19,7 +19,7 @@ using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Threading.Tasks;
 using ArcGIS.Desktop.Mapping;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     internal class DrawAoiToolBase : MapTool
     {
@@ -37,11 +37,11 @@ namespace KyFromAboveSTAC
             // Project to WGS84 (lon/lat) so the GeoJSON matches STAC's CRS84 expectation.
             Geometry wgs = GeometryEngine.Instance.Project(geometry, SpatialReferences.WGS84);
 
-            var pane = FrameworkApplication.DockPaneManager.Find("KyFromAbove_SearchDockpane") as SearchDockpaneViewModel;
+            var pane = FrameworkApplication.DockPaneManager.Find("StacPro_SearchDockpane") as SearchDockpaneViewModel;
             pane?.SetAoi(wgs);
 
             // Bring the dockpane forward so the user sees the captured AOI.
-            FrameworkApplication.DockPaneManager.Find("KyFromAbove_SearchDockpane")?.Activate();
+            FrameworkApplication.DockPaneManager.Find("StacPro_SearchDockpane")?.Activate();
 
             return Task.FromResult(true);
         }
@@ -49,19 +49,19 @@ namespace KyFromAboveSTAC
 
     internal class DrawPointAoiTool : DrawAoiToolBase
     {
-        public const string ToolId = "KyFromAbove_DrawPointAoiTool";
+        public const string ToolId = "StacPro_DrawPointAoiTool";
         public DrawPointAoiTool() : base(SketchGeometryType.Point) { }
     }
 
     internal class DrawLineAoiTool : DrawAoiToolBase
     {
-        public const string ToolId = "KyFromAbove_DrawLineAoiTool";
+        public const string ToolId = "StacPro_DrawLineAoiTool";
         public DrawLineAoiTool() : base(SketchGeometryType.Line) { }
     }
 
     internal class DrawPolygonAoiTool : DrawAoiToolBase
     {
-        public const string ToolId = "KyFromAbove_DrawPolygonAoiTool";
+        public const string ToolId = "StacPro_DrawPolygonAoiTool";
         public DrawPolygonAoiTool() : base(SketchGeometryType.Polygon) { }
     }
 
@@ -72,7 +72,7 @@ namespace KyFromAboveSTAC
     /// </summary>
     internal class SelectFeatureAoiTool : MapTool
     {
-        public const string ToolId = "KyFromAbove_SelectFeatureAoiTool";
+        public const string ToolId = "StacPro_SelectFeatureAoiTool";
 
         public SelectFeatureAoiTool()
         {
@@ -134,18 +134,18 @@ namespace KyFromAboveSTAC
                 if (!ok)
                 {
                     MessageBox.Show("No feature found there. Click directly on a feature, or drag a box over one.",
-                        "KyFromAbove-STAC", MessageBoxButton.OK, MessageBoxImage.Information);
+                        "STAC Browser", MessageBoxButton.OK, MessageBoxImage.Information);
                     return false;
                 }
 
                 // Project to WGS84 (lon/lat) so the GeoJSON matches STAC's CRS84 expectation.
                 Geometry wgs = GeometryEngine.Instance.Project(unioned, SpatialReferences.WGS84);
 
-                var pane = FrameworkApplication.DockPaneManager.Find("KyFromAbove_SearchDockpane") as SearchDockpaneViewModel;
+                var pane = FrameworkApplication.DockPaneManager.Find("StacPro_SearchDockpane") as SearchDockpaneViewModel;
                 pane?.SetAoi(wgs, $"AOI from {count} selected feature(s)");
 
                 // Bring the dockpane forward so the user sees the captured AOI.
-                FrameworkApplication.DockPaneManager.Find("KyFromAbove_SearchDockpane")?.Activate();
+                FrameworkApplication.DockPaneManager.Find("StacPro_SearchDockpane")?.Activate();
 
                 return true;
             }
@@ -156,7 +156,7 @@ namespace KyFromAboveSTAC
                 // OnSketchCompleteAsync unhandled, which has previously crashed Pro entirely rather
                 // than just failing this one selection.
                 MessageBox.Show($"Couldn't use the selected feature(s) as an AOI: {ex.Message}",
-                    "KyFromAbove-STAC", MessageBoxButton.OK, MessageBoxImage.Error);
+                    "STAC Browser", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             finally

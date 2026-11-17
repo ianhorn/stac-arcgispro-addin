@@ -13,7 +13,7 @@ every active API source and populate the checkbox list. Collection names are sor
 ## Bring Your Own API
 
 !!! warning "Experimental"
-    Bring Your Own API is still being tested against non-KyFromAbove STAC endpoints and may not
+    Bring Your Own API is still being tested against non-STAC Browser endpoints and may not
     work as expected. Depending on how the other API implements the STAC spec, results,
     thumbnails, or downloads could behave differently or fail outright.
 

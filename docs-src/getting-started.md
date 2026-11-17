@@ -2,13 +2,13 @@
 
 ## Open the pane
 
-Click the **KyFromAbove-STAC-AddIn** tab, then **STAC Search**. This opens a dockable pane (docked
+Click the **STAC Browser** tab, then **STAC Search**. This opens a dockable pane (docked
 alongside the Contents pane by default) that stays open as you work.
 
-![ArcGIS Pro ribbon with the KyFromAbove-STAC tab and STAC Search button](images/getting-started-ribbon.jpg)
+![ArcGIS Pro ribbon with the STAC Browser tab and STAC Search button](images/getting-started-ribbon.jpg)
 ___
 
-![The KyFromAbove-STAC dockpane, docked alongside the Contents pane](images/getting-started-dockpane.jpg)
+![The STAC Browser dockpane, docked alongside the Contents pane](images/getting-started-dockpane.jpg)
 ___
 
 ## A first search, end to end

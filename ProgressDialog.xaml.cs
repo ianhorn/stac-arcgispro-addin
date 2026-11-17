@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     public partial class ProgressDialog : Window
     {

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -11,11 +11,11 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <NoWarn>CA1416;CS1591;MSB3277</NoWarn>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <AssemblyName>KyFromAboveSTACAddin</AssemblyName>
-    <RootNamespace>KyFromAboveSTAC</RootNamespace>
+    <AssemblyName>StacProAddin</AssemblyName>
+    <RootNamespace>StacProAddin</RootNamespace>
     <PackageType>Addin</PackageType>
     <!--
-      tools\KyFromAboveDownloader\ is its own separate SDK project (a stand-alone console
+      tools\StacProDownloader\ is its own separate SDK project (a stand-alone console
       app, not part of this add-in's assembly) that happens to live under this project's
       directory. Without this, the default implicit item globs below sweep its Program.cs
       and generated obj\ files into THIS compile too, causing duplicate-attribute errors.
@@ -43,7 +43,7 @@
     <Content Include="DarkImages\AddInDesktop32.png" />
     <!--
       Stand-alone downloader exe offered by Export Script's "Executable" option (see
-      tools\KyFromAboveDownloader\). Pre-built and committed (self-contained single-file
+      tools\StacProDownloader\). Pre-built and committed (self-contained single-file
       win-x64, ~14MB) rather than compiled by this project: rebuild it with
       "dotnet publish -c Release -o bin\publish" in that folder after changing its source.
 
@@ -53,8 +53,8 @@
       zipped, read by Pro directly) when it finds the file already sitting in the build output
       directory. Without this, SearchDockpaneViewModel would never find the exe at runtime.
     -->
-    <Content Include="tools\KyFromAboveDownloader\dist\KyFromAboveDownloader.exe">
-      <Link>KyFromAboveDownloader.exe</Link>
+    <Content Include="tools\StacProDownloader\dist\StacProDownloader.exe">
+      <Link>StacProDownloader.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

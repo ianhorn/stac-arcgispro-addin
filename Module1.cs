@@ -1,11 +1,11 @@
 /*
- * KyFromAbove STAC Browser - ArcGIS Pro Add-in
+ * STAC Browser - ArcGIS Pro Add-in
  * Module entry point (singleton). Holds shared services.
  */
 using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     /// <summary>
     /// Add-in module. Provides access to shared services (e.g. the STAC client).
@@ -22,7 +22,7 @@ namespace KyFromAboveSTAC
             get
             {
                 if (_this == null)
-                    _this = (Module1)FrameworkApplication.FindModule("KyFromAbove_Module");
+                    _this = (Module1)FrameworkApplication.FindModule("StacPro_Module");
                 return _this;
             }
         }

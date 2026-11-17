@@ -1,5 +1,5 @@
 /*
- * STAC API data models. POCOs deserialized from the KyFromAbove STAC API
+ * STAC API data models. POCOs deserialized from the STAC Browser API
  * (https://spved5ihrl.execute-api.us-west-2.amazonaws.com/).
  * Conforms to STAC API 1.0.0 / stac-fastapi responses.
  */
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace KyFromAboveSTAC.Stac
+namespace StacProAddin.Stac
 {
     /// <summary>A STAC Link (pagination, self, parent, etc.).</summary>
     public class StacLink

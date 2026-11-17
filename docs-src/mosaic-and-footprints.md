@@ -31,11 +31,11 @@ time.
 
 ## Show Footprints
 
-Draws the footprint of every current result as an outline on a **KyFromAbove Footprints** graphics
+Draws the footprint of every current result as an outline on a **STAC Footprints** graphics
 layer, then zooms to their combined extent. Re-running it replaces the previous footprints rather
 than stacking duplicates. Requires an open map view.
 
 Each result row also has its own **Footprint** button to draw just that one item's footprint (and
 zoom to it) without affecting the others.
 
-![The KyFromAbove Footprints layer showing outlined footprints, zoomed to their combined extent](images/footprints-on-map.jpg)
+![The STAC Footprints layer showing outlined footprints, zoomed to their combined extent](images/footprints-on-map.jpg)

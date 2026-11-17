@@ -373,7 +373,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# KyFromAbove-STAC code-signing artifacts (self-signed dev cert backups / exports)
+# STAC Browser code-signing artifacts (self-signed dev cert backups / exports)
 *.cer
 KyFromAbove.pfx
 

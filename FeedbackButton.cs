@@ -3,7 +3,7 @@
  */
 using ArcGIS.Desktop.Framework.Contracts;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     internal class FeedbackButton : Button
     {

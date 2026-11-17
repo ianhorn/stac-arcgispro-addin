@@ -1,6 +1,6 @@
 #requires -Version 5.1
 <#
-  Authenticode-signs a file (called by the build, KyFromAboveAddin.csproj,
+  Authenticode-signs a file (called by the build, StacProAddin.csproj,
   via the "AuthenticodeSignAddin" MSBuild target — before the Esri targets
   zip the assembly into the .esriAddinX).
 

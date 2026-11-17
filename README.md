@@ -1,13 +1,13 @@
-# kyfromabove-stac-addin
+# stac-arcgispro-addin
 
-[![Downloads](https://img.shields.io/github/downloads/ianhorn/kyfromabove-stac-addin/total.svg)](https://github.com/ianhorn/kyfromabove-stac-addin/releases)
+[![Downloads](https://img.shields.io/github/downloads/ianhorn/stac-arcgispro-addin/total.svg)](https://github.com/ianhorn/stac-arcgispro-addin/releases)
 
-ArcGIS Pro add-in for searching and downloading Kentucky From Above STAC imagery, DEM, and LiDAR
+ArcGIS Pro add-in for searching and downloading imagery, DEM, and LiDAR
 point cloud data.
 
 ## Documentation
 
-Published at **https://ianhorn.github.io/kyfromabove-stac-addin/**, built with
+Published at **https://ianhorn.github.io/stac-arcgispro-addin/**, built with
 [MkDocs](https://www.mkdocs.org/) and the [Material theme](https://squidfunk.github.io/mkdocs-material/).
 
 Markdown source lives in [`docs-src/`](docs-src/index.md). A GitHub Actions workflow

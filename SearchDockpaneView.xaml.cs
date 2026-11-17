@@ -1,5 +1,5 @@
 /*
- * Code-behind for the KyFromAbove STAC search dockpane view.
+ * Code-behind for the STAC Browser search dockpane view.
  * The ArcGIS Pro framework pairs this UserControl (declared as <content> in
  * Config.daml) with the SearchDockpaneViewModel DockPane instance and sets the
  * DataContext automatically, so no explicit DataContext wiring is needed here.
@@ -14,7 +14,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     /// <summary>
     /// Interaction logic for SearchDockpaneView.xaml
@@ -192,7 +192,7 @@ namespace KyFromAboveSTAC
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Couldn't open the link:\n{ex.Message}", "KyFromAbove-STAC", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Couldn't open the link:\n{ex.Message}", "STAC Browser", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

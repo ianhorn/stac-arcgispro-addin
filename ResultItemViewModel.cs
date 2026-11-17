@@ -8,9 +8,9 @@ using System.Text.Json;
 using System.Windows.Input;
 using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
-using KyFromAboveSTAC.Stac;
+using StacProAddin.Stac;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     /// <summary>Represents one STAC item row in the search results.</summary>
     public class ResultItemViewModel : PropertyChangedBase
@@ -167,7 +167,7 @@ namespace KyFromAboveSTAC
                 else
                 {
                     Status = "Failed to add footprint.";
-                    System.Windows.MessageBox.Show("Could not add the footprint to the map. Check ArcGIS Pro messages or ensure GeoJSON support is available.", "KyFromAbove-STAC: Footprint", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                    System.Windows.MessageBox.Show("Could not add the footprint to the map. Check ArcGIS Pro messages or ensure GeoJSON support is available.", "STAC Browser: Footprint", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
@@ -222,7 +222,7 @@ namespace KyFromAboveSTAC
 
             try
             {
-                var tempDir = Path.Combine(Path.GetTempPath(), "KyFromAbove-STAC", "thumbs");
+                var tempDir = Path.Combine(Path.GetTempPath(), "STAC Browser", "thumbs");
                 Directory.CreateDirectory(tempDir);
                 var safeName = Item.Id;
                 foreach (var ch in System.IO.Path.GetInvalidFileNameChars()) safeName = safeName.Replace(ch, '_');
@@ -243,7 +243,7 @@ namespace KyFromAboveSTAC
             {
                 // Surface the failure instead of silently leaving a blank thumbnail -- makes
                 // network/URL/permission problems visible without attaching a debugger.
-                System.Diagnostics.Debug.WriteLine($"[KyFromAbove] Thumbnail failed for {Item.Id} ({href}): {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[STAC] Thumbnail failed for {Item.Id} ({href}): {ex.Message}");
                 if (string.IsNullOrWhiteSpace(Status)) Status = "Thumbnail unavailable: " + ex.Message;
             }
         }

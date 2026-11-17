@@ -2,7 +2,7 @@
 
   <!--
     Stand-alone downloader bundled into the add-in package (see the Content item in
-    ..\..\KyFromAboveSTACAddin.csproj) and offered as the "Executable (.exe)" option in
+    ..\..\StacProAddin.csproj) and offered as the "Executable (.exe)" option in
     Export Script. Reads manifest.json (written alongside it by Export Script) and downloads
     every listed asset: no ArcGIS Pro, and (published self-contained/single-file, as the add-in
     bundles it) no .NET runtime install, required on the machine that runs it.
@@ -12,7 +12,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>KyFromAboveDownloader</AssemblyName>
+    <AssemblyName>StacProDownloader</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 

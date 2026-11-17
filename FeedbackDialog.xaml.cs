@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
-using KyFromAboveSTAC.Services;
+using StacProAddin.Services;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     public partial class FeedbackDialog : Window
     {
@@ -34,7 +34,7 @@ namespace KyFromAboveSTAC
             catch (Exception ex)
             {
                 MessageBox.Show($"Couldn't open the browser: {ex.Message}\n\nYou can file an issue directly at {FeedbackService.RepoUrl}/issues.",
-                    "KyFromAbove-STAC", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    "STAC Browser", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             Close();

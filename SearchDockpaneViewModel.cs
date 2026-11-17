@@ -1,5 +1,5 @@
 /*
- * KyFromAbove STAC search dockpane view model.
+ * STAC Browser search dockpane view model.
  * Hosts the search UI logic: load collections, run searches, paginate results.
  * Derives from DockPane (className in Config.daml points here; the framework
  * pairs it with SearchDockpaneView as the content).
@@ -23,9 +23,9 @@ using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
 using ArcGIS.Desktop.Framework.Threading.Tasks;
 using ArcGIS.Desktop.Mapping;
-using KyFromAboveSTAC.Stac;
+using StacProAddin.Stac;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     /// <summary>One entry in the "threads" dropdown: a preset core count, or "Custom" (Value == null) to enable manual entry.</summary>
     public class ThreadOption
@@ -43,7 +43,7 @@ namespace KyFromAboveSTAC
 
     internal class SearchDockpaneViewModel : DockPane
     {
-        private const string _dockPaneID = "KyFromAbove_SearchDockpane";
+        private const string _dockPaneID = "StacPro_SearchDockpane";
 
         // Per-source pagination: each active API source tracks its own "next" link, since a
         // merged multi-source search can have some sources exhausted and others not.
@@ -154,11 +154,11 @@ namespace KyFromAboveSTAC
                       "You can select and download them for external processing. If you need to work with point-clouds inside ArcGIS Pro, " +
                       "import them via the appropriate geoprocessing tools or use a point-cloud/ LAS dataset workflow.\n\n" +
                       "This tool supports downloading both raster (COG) and point-cloud assets.";
-            System.Windows.MessageBox.Show(msg, "KyFromAbove-STAC: Point-cloud help", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+            System.Windows.MessageBox.Show(msg, "STAC Browser: Point-cloud help", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
         }
 
         /// <summary>Base URL of the published MkDocs site (see README.md / mkdocs.yml).</summary>
-        private const string DocsBaseUrl = "https://ianhorn.github.io/kyfromabove-stac-addin/";
+        private const string DocsBaseUrl = "https://ianhorn.github.io/stac-arcgispro-addin/";
 
         /// <summary>Open a documentation page in the default browser. <paramref name="page"/> is the
         /// page's slug (matches its .md filename without extension), or null/empty for the home page.</summary>
@@ -172,7 +172,7 @@ namespace KyFromAboveSTAC
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"Couldn't open the documentation page:\n{ex.Message}",
-                    "KyFromAbove-STAC", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                    "STAC Browser", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
             }
         }
 
@@ -186,7 +186,7 @@ namespace KyFromAboveSTAC
 
         /// <summary>A second entry point alongside the ribbon's Feedback button -- see
         /// FeedbackDialog.xaml. Not everyone notices a small ribbon button, and this pane is open
-        /// whenever KyFromAbove-STAC is in use.</summary>
+        /// whenever STAC Browser is in use.</summary>
         public ICommand FeedbackCommand => new RelayCommand(ShowFeedbackDialog);
 
         private static void ShowFeedbackDialog() =>
@@ -203,21 +203,21 @@ namespace KyFromAboveSTAC
                 var r = await Services.UpdateCheckService.CheckAsync();
                 if (!r.IsNewerAvailable)
                 {
-                    System.Windows.MessageBox.Show($"You're up to date: KyFromAbove STAC {r.Current} is the latest release.",
-                        "KyFromAbove STAC", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    System.Windows.MessageBox.Show($"You're up to date: STAC Browser {r.Current} is the latest release.",
+                        "STAC Browser", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                     return;
                 }
                 var open = System.Windows.MessageBox.Show(
                     $"A newer version is available.\n\nInstalled: {r.Current}\nLatest: {r.Latest}\n\nOpen the release page to download it? " +
                     "(Close ArcGIS Pro before installing the new .esriAddinX.)",
-                    "KyFromAbove STAC", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Information);
+                    "STAC Browser", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Information);
                 if (open == System.Windows.MessageBoxResult.Yes)
                     Process.Start(new ProcessStartInfo(r.ReleaseUrl) { UseShellExecute = true });
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"Couldn't check for a newer version: {ex.Message}\n\nYou can check manually at {Services.UpdateCheckService.ReleasesPage}",
-                    "KyFromAbove STAC", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                    "STAC Browser", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
             }
         }
 
@@ -827,7 +827,7 @@ namespace KyFromAboveSTAC
 
                     // Inputs: default GDB, unique name, the map's spatial reference.
                     string gdb = Project.Current.DefaultGeodatabasePath;
-                    string mosaicName = "KyFromAbove_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                    string mosaicName = "StacPro_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
                     var sr = mv.Map.SpatialReference ?? SpatialReferences.WGS84;
 
                     if (Cancelled(dlg)) return;
@@ -950,7 +950,7 @@ namespace KyFromAboveSTAC
                 var warn = System.Windows.MessageBox.Show(
                     $"You're about to download {toDownload.Count} tiles to:\n  {DownloadFolder}\n\n" +
                     "Downloading a larger number of tiles can take a significant amount of time. Continue?",
-                    "KyFromAbove-STAC: Large download",
+                    "STAC Browser: Large download",
                     System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning);
                 if (warn != System.Windows.MessageBoxResult.Yes) { StatusMessage = "Download cancelled."; return; }
             }
@@ -1103,18 +1103,18 @@ namespace KyFromAboveSTAC
 
                 if (dlg.SelectedFormat == ExportScriptFormat.Executable)
                 {
-                    // The exe is a separate console project (tools\KyFromAboveDownloader\), pre-built
+                    // The exe is a separate console project (tools\StacProDownloader\), pre-built
                     // and bundled into this add-in's own package -- see the Content item in
-                    // KyFromAboveSTACAddin.csproj -- so it lands right next to this assembly on disk.
+                    // StacProAddin.csproj -- so it lands right next to this assembly on disk.
                     var sourceExe = Path.Combine(
                         Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "",
-                        "KyFromAboveDownloader.exe");
+                        "StacProDownloader.exe");
                     if (!File.Exists(sourceExe))
                     {
-                        StatusMessage = "Could not find the bundled KyFromAboveDownloader.exe alongside this add-in.";
+                        StatusMessage = "Could not find the bundled StacProDownloader.exe alongside this add-in.";
                         return;
                     }
-                    var destExe = Path.Combine(destFolder, $"KyFromAbove_download_{stamp}.exe");
+                    var destExe = Path.Combine(destFolder, $"StacPro_download_{stamp}.exe");
                     File.Copy(sourceExe, destExe, overwrite: true);
 
                     // Append the manifest straight onto the copied exe (see AppendEmbeddedManifest)
@@ -1151,7 +1151,7 @@ namespace KyFromAboveSTAC
                             script = BuildShellDownloadScript(assets, destFolder, concurrency);
                             break;
                     }
-                    var scriptPath = Path.Combine(destFolder, $"KyFromAbove_download_{stamp}{ext}");
+                    var scriptPath = Path.Combine(destFolder, $"StacPro_download_{stamp}{ext}");
                     await File.WriteAllTextAsync(scriptPath, script);
                     StatusMessage = $"Exported {assets.Count}-asset download script to {scriptPath}.";
                 }
@@ -1162,7 +1162,7 @@ namespace KyFromAboveSTAC
             }
         }
 
-        /// <summary>Manifest.json consumed by the bundled KyFromAboveDownloader.exe (tools\KyFromAboveDownloader\Program.cs).</summary>
+        /// <summary>Manifest.json consumed by the bundled StacProDownloader.exe (tools\StacProDownloader\Program.cs).</summary>
         private static string BuildDownloaderManifest(List<(string Url, string RelPath)> assets, string destFolder, int concurrency)
         {
             var manifest = new
@@ -1174,12 +1174,12 @@ namespace KyFromAboveSTAC
             return System.Text.Json.JsonSerializer.Serialize(manifest, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
         }
 
-        // Must match KyFromAboveDownloader's read side (tools\KyFromAboveDownloader\Program.cs,
+        // Must match StacProDownloader's read side (tools\StacProDownloader\Program.cs,
         // TryReadEmbeddedManifest) exactly: 8-byte ASCII magic at EOF, preceded by the 8-byte
         // little-endian byte-length of the JSON payload, which sits right before that.
         private static readonly byte[] ManifestFooterMagic = System.Text.Encoding.ASCII.GetBytes("KYFAMAN1");
 
-        /// <summary>Append a manifest payload to a copy of KyFromAboveDownloader.exe so it's a single, self-contained file (see ManifestFooterMagic).</summary>
+        /// <summary>Append a manifest payload to a copy of StacProDownloader.exe so it's a single, self-contained file (see ManifestFooterMagic).</summary>
         private static void AppendEmbeddedManifest(string exePath, string manifestJson)
         {
             var jsonBytes = System.Text.Encoding.UTF8.GetBytes(manifestJson);
@@ -1204,7 +1204,7 @@ namespace KyFromAboveSTAC
             var lines = new List<string>
             {
                 "<#",
-                "    KyFromAbove-STAC stand-alone download script",
+                "    STAC stand-alone download script",
                 $"    Generated {DateTime.Now:yyyy-MM-dd HH:mm} -- {assets.Count} asset(s).",
                 "",
                 "    Edit $DestFolder / $Concurrency below if needed, then run:",
@@ -1266,7 +1266,7 @@ namespace KyFromAboveSTAC
             var lines = new List<string>
             {
                 "#!/usr/bin/env Rscript",
-                "# KyFromAbove-STAC stand-alone download script (base R, no packages needed)",
+                "# STAC stand-alone download script (base R, no packages needed)",
                 $"# Generated {DateTime.Now:yyyy-MM-dd HH:mm} -- {assets.Count} asset(s).",
                 "# Edit dest_folder below if needed, then run: Rscript \"<this file>\"  (or source() it in R / RStudio)",
                 "",
@@ -1317,7 +1317,7 @@ namespace KyFromAboveSTAC
             {
                 "#!/usr/bin/env python3",
                 "\"\"\"",
-                "KyFromAbove-STAC stand-alone download script.",
+                "STAC stand-alone download script.",
                 $"Generated {DateTime.Now:yyyy-MM-dd HH:mm} -- {assets.Count} asset(s).",
                 "",
                 "Edit DEST_FOLDER / CONCURRENCY below if needed, then run:",
@@ -1377,7 +1377,7 @@ namespace KyFromAboveSTAC
         {
             var introSource = new List<string>
             {
-                "# KyFromAbove-STAC stand-alone download notebook",
+                "# STAC stand-alone download notebook",
                 "",
                 $"Generated {DateTime.Now:yyyy-MM-dd HH:mm} -- {assets.Count} asset(s).",
                 "",
@@ -1468,7 +1468,7 @@ namespace KyFromAboveSTAC
             var lines = new List<string>
             {
                 "#!/usr/bin/env bash",
-                "# KyFromAbove-STAC stand-alone download script",
+                "# STAC stand-alone download script",
                 $"# Generated {DateTime.Now:yyyy-MM-dd HH:mm} -- {assets.Count} asset(s).",
                 "# Edit DEST_FOLDER / CONCURRENCY below if needed, then run: bash \"<this file>\"",
                 "set -u",
@@ -1524,7 +1524,7 @@ namespace KyFromAboveSTAC
                 else
                 {
                     StatusMessage = "Failed to add footprints. Open a map view first.";
-                    System.Windows.MessageBox.Show("Could not add footprints to the map. Open a map view first, then try again.", "KyFromAbove: Footprints", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    System.Windows.MessageBox.Show("Could not add footprints to the map. Open a map view first, then try again.", "STAC: Footprints", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)

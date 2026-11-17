@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace KyFromAboveSTAC.Stac
+namespace StacProAddin.Stac
 {
     /// <summary>One selectable STAC API from STAC Index. <c>Name</c> is what the dialog's Name box gets filled with.</summary>
     public sealed record StacIndexCatalog(string Title, string Name, string Url, string Detail, bool IsBuiltIn);
@@ -38,7 +38,7 @@ namespace KyFromAboveSTAC.Stac
         private static HttpClient CreateClient()
         {
             var http = new HttpClient { Timeout = TimeSpan.FromSeconds(20) };
-            http.DefaultRequestHeaders.UserAgent.ParseAdd("KyFromAboveProAddin/1.0");
+            http.DefaultRequestHeaders.UserAgent.ParseAdd("StacProAddin/1.0");
             return http;
         }
 

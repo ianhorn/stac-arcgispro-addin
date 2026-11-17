@@ -10,9 +10,9 @@ using ArcGIS.Core.CIM;
 using ArcGIS.Core.Geometry;
 using ArcGIS.Desktop.Framework.Threading.Tasks;
 using ArcGIS.Desktop.Mapping;
-using KyFromAboveSTAC.Stac;
+using StacProAddin.Stac;
 
-namespace KyFromAboveSTAC.Services
+namespace StacProAddin.Services
 {
     /// <summary>Map integration helpers for STAC items.</summary>
     public class MapService
@@ -62,7 +62,7 @@ namespace KyFromAboveSTAC.Services
         }
 
         /// <summary>
-        /// Draw STAC item footprints as graphic outlines on a "KyFromAbove Footprints" GraphicsLayer
+        /// Draw STAC item footprints as graphic outlines on a "STAC Footprints" GraphicsLayer
         /// in the active map, then zoom to their combined extent.
         /// Graphics avoid the GeoJSON-file/GP-tool round trip (which is fragile: "JSON To Features"
         /// expects Esri JSON, not RFC 7946 GeoJSON, so that path could fail even as a fallback) --
@@ -82,11 +82,11 @@ namespace KyFromAboveSTAC.Services
 
                     // Remove any previous footprints layer instead of stacking duplicates on repeated clicks.
                     var existing = mv.Map.GetLayersAsFlattenedList().OfType<GraphicsLayer>()
-                        .FirstOrDefault(l => l.Name == "KyFromAbove Footprints");
+                        .FirstOrDefault(l => l.Name == "STAC Footprints");
                     if (existing != null) mv.Map.RemoveLayer(existing);
 
                     var gLayer = LayerFactory.Instance.CreateLayer<GraphicsLayer>(
-                        new GraphicsLayerCreationParams { Name = "KyFromAbove Footprints" }, mv.Map);
+                        new GraphicsLayerCreationParams { Name = "STAC Footprints" }, mv.Map);
 
                     var outline = SymbolFactory.Instance.ConstructStroke(ColorFactory.Instance.RedRGB, 2.0, SimpleLineStyle.Solid);
                     var symbol = SymbolFactory.Instance.ConstructPolygonSymbol(ColorFactory.Instance.CreateRGBColor(0, 0, 0, 0), SimpleFillStyle.Null, outline);
@@ -102,7 +102,7 @@ namespace KyFromAboveSTAC.Services
                         try
                         {
                             var node = JsonNode.Parse(item.Geometry.GetRawText());
-                            // MapService and AoiImportService are both in KyFromAboveSTAC.Services, so no qualifier needed.
+                            // MapService and AoiImportService are both in StacProAddin.Services, so no qualifier needed.
                             footprint = AoiImportService.BuildGeometryFromNode(node) as Polygon;
                         }
                         catch { /* fall back to bbox below */ }

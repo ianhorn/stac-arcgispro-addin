@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using KyFromAboveSTAC.Stac;
+using StacProAddin.Stac;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     /// <summary>What the user chose to do with the entered API source, or that they cancelled.</summary>
     public enum AddApiSourceResult

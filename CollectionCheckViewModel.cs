@@ -2,9 +2,9 @@
  * Checkbox view model for selecting STAC collections to search within.
  */
 using ArcGIS.Desktop.Framework.Contracts;
-using KyFromAboveSTAC.Stac;
+using StacProAddin.Stac;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     /// <summary>A checkable STAC collection entry in the collections filter list.</summary>
     public class CollectionCheckViewModel : PropertyChangedBase

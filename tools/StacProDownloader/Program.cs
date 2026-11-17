@@ -1,5 +1,5 @@
-// KyFromAboveDownloader: stand-alone console downloader generated/bundled by the
-// KyFromAbove-STAC ArcGIS Pro add-in's "Export Script" -> Executable option.
+// StacProDownloader: stand-alone console downloader generated/bundled by the
+// STAC Browser ArcGIS Pro add-in's "Export Script" -> Executable option.
 //
 // Reads its manifest (asset list, destination folder, concurrency) and downloads every
 // listed asset in parallel. No ArcGIS Pro, and (when published self-contained/single-file,
@@ -11,14 +11,14 @@
 // A manifest.json path can still be passed explicitly (or found next to the exe, same
 // filename stem) for local testing without rebuilding a manifest-embedded exe each time.
 //
-// Usage: KyFromAboveDownloader.exe [path-to-manifest.json]
+// Usage: StacProDownloader.exe [path-to-manifest.json]
 
 using System.Net.Http;
 using System.Threading;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace KyFromAboveDownloader;
+namespace StacProDownloader;
 
 internal sealed class Asset
 {
@@ -55,11 +55,11 @@ internal static class Program
         if (manifest == null)
         {
             // Fall back to an external manifest.json: an explicit path, or one next to this
-            // exe with the same filename stem (e.g. "KyFromAbove_download_20260911.exe" looks
-            // for "KyFromAbove_download_20260911.json") -- useful for local testing.
+            // exe with the same filename stem (e.g. "StacPro_download_20260911.exe" looks
+            // for "StacPro_download_20260911.json") -- useful for local testing.
             var manifestPath = args.Length > 0
                 ? args[0]
-                : Path.ChangeExtension(Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "KyFromAboveDownloader.exe"), ".json");
+                : Path.ChangeExtension(Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "StacProDownloader.exe"), ".json");
 
             if (!File.Exists(manifestPath))
             {
@@ -90,7 +90,7 @@ internal static class Program
         }
 
         Directory.CreateDirectory(manifest.DestFolder);
-        Console.WriteLine($"KyFromAbove-STAC downloader -- {manifest.Assets.Count} asset(s) -> {manifest.DestFolder}");
+        Console.WriteLine($"STAC Browser downloader -- {manifest.Assets.Count} asset(s) -> {manifest.DestFolder}");
         Console.WriteLine($"Concurrency: {Math.Max(1, manifest.Concurrency)}");
         Console.WriteLine();
 

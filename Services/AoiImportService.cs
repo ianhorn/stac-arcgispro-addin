@@ -14,7 +14,7 @@ using System.Text.Json.Nodes;
 using ArcGIS.Core.Data;
 using ArcGIS.Core.Geometry;
 
-namespace KyFromAboveSTAC.Services
+namespace StacProAddin.Services
 {
     public static class AoiImportService
     {

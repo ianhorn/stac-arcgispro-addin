@@ -9,7 +9,7 @@
  */
 using System;
 
-namespace KyFromAboveSTAC.Stac
+namespace StacProAddin.Stac
 {
     public class StacApiSource
     {

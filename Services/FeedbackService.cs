@@ -23,13 +23,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 
-namespace KyFromAboveSTAC.Services
+namespace StacProAddin.Services
 {
     public static class FeedbackService
     {
         private const string FormspreeEndpoint = "https://formspree.io/f/xgavbbyb";
-        private const string DocsSiteUrl = "https://ianhorn.github.io/kyfromabove-stac-addin/";
-        public const string RepoUrl = "https://github.com/ianhorn/kyfromabove-stac-addin";
+        private const string DocsSiteUrl = "https://ianhorn.github.io/stac-arcgispro-addin/";
+        public const string RepoUrl = "https://github.com/ianhorn/stac-arcgispro-addin";
 
         private static readonly HttpClient Http = new HttpClient { Timeout = TimeSpan.FromSeconds(20) };
 
@@ -53,7 +53,7 @@ namespace KyFromAboveSTAC.Services
             var payload = new
             {
                 message = fullMessage,
-                _subject = "KyFromAbove-STAC Add-in feedback",
+                _subject = "STAC Browser Add-in feedback",
                 _replyto = string.IsNullOrWhiteSpace(replyToEmail) ? null : replyToEmail.Trim(),
                 _gotcha = "" // honeypot: a real browser form leaves this hidden field empty; bots often fill every field
             };
@@ -93,12 +93,12 @@ namespace KyFromAboveSTAC.Services
             return jsonBody;
         }
 
-        /// <summary>"KyFromAbove-STAC 1.0.0.0 | ArcGIS Pro 3.6.5.59530 | Microsoft Windows 10.0.26100" --
+        /// <summary>"STAC Browser 1.0.0.0 | ArcGIS Pro 3.6.5.59530 | Microsoft Windows 10.0.26100" --
         /// each part best-effort; a part that can't be determined is just left out rather than failing
         /// the whole summary.</summary>
         public static string GetEnvironmentSummary()
         {
-            var parts = new System.Collections.Generic.List<string> { "KyFromAbove-STAC " + AddInVersion() };
+            var parts = new System.Collections.Generic.List<string> { "STAC Browser " + AddInVersion() };
             var proVersion = ArcGisProVersion();
             if (proVersion != null) parts.Add("ArcGIS Pro " + proVersion);
             parts.Add(RuntimeInformation.OSDescription.Trim());

@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Json;
 using ArcGIS.Core.Geometry;
 
-namespace KyFromAboveSTAC.Services
+namespace StacProAddin.Services
 {
     public static class GeoJsonConverter
     {

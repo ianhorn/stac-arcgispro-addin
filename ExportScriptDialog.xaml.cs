@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace KyFromAboveSTAC
+namespace StacProAddin
 {
     public enum ExportScriptFormat
     {

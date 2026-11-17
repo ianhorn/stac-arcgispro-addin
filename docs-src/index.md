@@ -1,15 +1,15 @@
-# KyFromAbove-STAC-AddIn Browser
+# STAC Browser
 
-**KyFromAbove-STAC-AddIn Browser** is an ArcGIS Pro add-in for searching, previewing, and downloading
+**STAC Browser** is an ArcGIS Pro add-in for searching, previewing, and downloading
 aerial imagery, DEM, and LiDAR point cloud data from the [Kentucky From Above](https://kyfromabove.ky.gov/) open data registry on [AWS](https://registry.opendata.aws/kyfromabove/) leveraging the STAC API -- without leaving ArcGIS Pro.
 
-It adds a dockable **KyFromAbove-STAC-AddIn** pane with tools to build an area of interest from the map,
+It adds a dockable **STAC Browser** pane with tools to build an area of interest from the map,
 filter by collection and date, run a [STAC](https://stacspec.org/) search, and add or download the
 results, all backed by a standard [STAC API](https://github.com/radiantearth/stac-api-spec).
 
 ## Features
 
-- **Search** the built-in KyFromAbove STAC catalog, or [bring your own STAC API](collections-and-sources.md)
+- **Search** the built-in STAC Browser catalog, or [bring your own STAC API](collections-and-sources.md)
   and search it alongside (or instead of) the built-in one.
 - **Area of interest** tools: draw a point/line/polygon on the map, use the current map extent, use
   an existing layer's selection or full extent, or load an AOI from a `.shp`/`.geojson` file -- even
@@ -43,6 +43,6 @@ question -- either as a GitHub issue, or sent directly with no GitHub account ne
 ## Check version
 
 Click **Check version**, next to Feedback and Help, to compare your installed build against the
-latest published [release](https://github.com/ianhorn/kyfromabove-stac-addin/releases). If a newer
+latest published [release](https://github.com/ianhorn/stac-arcgispro-addin/releases). If a newer
 one is available, it offers to open the release page -- close ArcGIS Pro before installing the new
 `.esriAddinX`.
