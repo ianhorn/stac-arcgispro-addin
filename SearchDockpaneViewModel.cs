@@ -362,6 +362,10 @@ namespace StacProAddin
         // GeoJSON geometry string (lon/lat) set via a Draw* AOI tool; used as the STAC 'intersects' AOI.
         private string _intersectsGeoJson;
 
+        /// <summary>Largest AOI GeoJSON sent with a search. Bigger bodies are rejected by some APIs (HTTP 413,
+        /// e.g. Planetary Computer for a buffered state boundary), so a detailed AOI is simplified to fit.</summary>
+        private const int MaxAoiGeoJsonChars = 100_000;
+
         private int _resultCount;
         public int ResultCount
         {
@@ -663,7 +667,7 @@ namespace StacProAddin
             if (geometry == null) return;
             try
             {
-                _intersectsGeoJson = Services.GeoJsonConverter.ToGeoJsonGeometry(geometry);
+                _intersectsGeoJson = Services.GeoJsonConverter.ToGeoJsonWithinBudget(geometry, MaxAoiGeoJsonChars, out var simplifiedBy);
                 var e = geometry.Extent;
                 if (label == null)
                 {
@@ -681,7 +685,11 @@ namespace StacProAddin
                     }
                 }
                 AoiText = label;
-                StatusMessage = "AOI set from drawn geometry.";
+                StatusMessage = simplifiedBy == 0
+                    ? "AOI set from drawn geometry."
+                    : simplifiedBy < 0
+                        ? "AOI is very detailed: its bounding box is used for the search."
+                        : $"AOI is very detailed: simplified (by up to ~{simplifiedBy * 111000:F0} m) so the search request is small enough.";
             }
             catch (Exception ex)
             {

@@ -29,6 +29,40 @@ namespace StacProAddin.Services
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 
+        /// <summary>
+        /// GeoJSON for a search 'intersects' parameter, kept under <paramref name="maxChars"/>. A detailed outline
+        /// (a buffered state boundary can have hundreds of thousands of vertices) makes the request body too large
+        /// for the API (HTTP 413), so the geometry is generalized with a growing tolerance until it fits, then
+        /// falls back to its bounding box. <paramref name="toleranceDegrees"/> is 0 when nothing was simplified and
+        /// -1 when the bounding box was used. A search only needs the outline roughly right: tiles are matched by
+        /// their own footprints.
+        /// </summary>
+        public static string ToGeoJsonWithinBudget(Geometry geometry, int maxChars, out double toleranceDegrees)
+        {
+            toleranceDegrees = 0;
+            var json = ToGeoJsonGeometry(geometry);
+            if (json == null || json.Length <= maxChars || geometry is MapPoint) return json;
+
+            // Only polygons and lines have vertices to drop; start around 10 m and double.
+            for (double tolerance = 0.0001; tolerance <= 0.05; tolerance *= 2)
+            {
+                var simplified = GeometryEngine.Instance.Generalize(geometry, tolerance, true, false);
+                if (simplified == null || simplified.IsEmpty) break;
+                var candidate = ToGeoJsonGeometry(simplified);
+                if (candidate.Length <= maxChars)
+                {
+                    toleranceDegrees = tolerance;
+                    return candidate;
+                }
+            }
+
+            var e = geometry.Extent;
+            var f = System.Globalization.CultureInfo.InvariantCulture.NumberFormat;
+            toleranceDegrees = -1;
+            return "{\"type\":\"Polygon\",\"coordinates\":[" + string.Format(f,
+                "[[{0},{1}],[{2},{1}],[{2},{3}],[{0},{3}],[{0},{1}]]", e.XMin, e.YMin, e.XMax, e.YMax) + "]}";
+        }
+
         private static void WriteGeometry(Utf8JsonWriter w, Geometry g)
         {
             switch (g)
